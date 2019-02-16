@@ -5,19 +5,22 @@ const Composer = (props) => {
     const {
         inputHandler,
         handlerSubmit,
+        enterPressed,
         inputValue
     } = props
+
     return (
         <div className="idea-muscle-composer">
             <input
                 value={inputValue}
                 placeholder="Enter your awesome idea here" 
                 onChange={inputHandler}
+                onKeyPress={enterPressed}
             />
             <div>
-                <button onClick={handlerSubmit}>
+                {/* <button onClick={handlerSubmit}>
                     SUBMIT
-                </button>
+                </button> */}
             </div>
         </div>
     );

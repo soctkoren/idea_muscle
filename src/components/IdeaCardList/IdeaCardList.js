@@ -5,17 +5,23 @@ import './IdeaCardList.scss';
 
 const IdeaCardList = (props) => {
     const {
-        ideaList
+        ideaList,
+        isInSession
     } = props
     
     return (    
         <div className="idea-card-list">
-            {ideaList.length ? 
-                ideaList.map((idea, index) =>
-                    <IdeaCard idea={idea} key={index} />
-                ) :
-                "no cards" 
-            }
+            {
+                isInSession ? 
+                    ideaList.length ?
+                        ideaList.map((idea, index) =>
+                            <IdeaCard idea={idea} key={index} />
+                        ) :
+                        <div className="idea-empty-card">
+                            <p>You have no ideas right now</p>
+                        </div>
+                : null 
+            }          
         </div>
     );
 }

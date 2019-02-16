@@ -1,0 +1,11 @@
+@import '../../styles/colors';
+
+.idea-card {
+    background-color: white;
+    min-width: 350px;
+    width: 70%;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    color: $spacegray;
+    margin-top: 10px;
+}

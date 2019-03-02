@@ -4,9 +4,9 @@ import './Composer.scss';
 const Composer = (props) => {
     const {
         inputHandler,
-        handlerSubmit,
         enterPressed,
-        inputValue
+        inputValue,
+        isSessionComplete
     } = props
 
     return (
@@ -16,12 +16,8 @@ const Composer = (props) => {
                 placeholder="Enter your awesome idea here" 
                 onChange={inputHandler}
                 onKeyPress={enterPressed}
+                disabled={isSessionComplete ? "disabled" : "" } 
             />
-            <div>
-                {/* <button onClick={handlerSubmit}>
-                    SUBMIT
-                </button> */}
-            </div>
         </div>
     );
 }

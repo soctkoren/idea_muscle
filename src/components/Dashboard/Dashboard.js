@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Composer from '../Composer/Composer';
 import IdeaCardList from '../IdeaCardList/IdeaCardList';
+import SessionTimer from '../SessionTimer/SessionTimer';
+
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -9,6 +11,7 @@ class Dashboard extends Component {
 
         this.state = {
             isInSession: false,
+            isSessionComplete: false,
             inputValue: '',
             ideaList: []
         }
@@ -49,13 +52,22 @@ class Dashboard extends Component {
     handlerSubmit(event) {
         event.preventDefault();
 
-        let newList = this.state.ideaList;
-        newList.push(this.state.inputValue);
+        // add validation to make sure we don't go past ten
+        if (this.state.ideaList.length === 10) {
+            this.setState({
+                inputValue: '',
+                isSessionComplete: true
+            })
+        } else {
+            let newList = this.state.ideaList;
+            newList.push(this.state.inputValue);
+            
+            this.setState({
+                inputValue: '',
+                ideaList: newList
+            })
+        }
 
-        this.setState({
-            inputValue: '',
-            ideaList: newList
-        })
     }
 
     render () {
@@ -63,12 +75,18 @@ class Dashboard extends Component {
             <div className="idea-muscle-dashboard">
                 {/* <button onClick={this.resetApp}>refreash</button> */}
                 {
+                    this.state.isInSession ?
+                        <SessionTimer
+                            cardListLength={this.state.ideaList.length}
+                        /> : null
+                }
+                {
                     this.state.isInSession ? 
                     <Composer
-                        inputHandler={this.inputHandler}
-                        handlerSubmit={this.handlerSubmit}
+                        inputHandler={this.inputHandler}                        
                         inputValue={this.state.inputValue}
                         enterPressed={this.enterPressed}
+                        isSessionComplete={this.state.isSessionComplete}
                     /> : 
                     <div className="idea-muscle-session-starter">
                         <p>Train your brian today!</p>
